@@ -1,0 +1,23 @@
+@implements IDisposable
+@inject StateContainer StateContainer
+ 
+<h4>Child Component Two</h4>
+ 
+<ul class="list-group">
+@foreach (var item in StateContainer.MovieList)
+{
+    <li class="list-group-item">@item</li>
+}
+</ul>
+ 
+@code {
+    protected override void OnInitialized()
+    {
+        StateContainer.OnChange += StateHasChanged;
+    }
+ 
+    public void Dispose()
+    {
+        StateContainer.OnChange -= StateHasChanged;
+    }
+}

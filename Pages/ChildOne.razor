@@ -1,0 +1,31 @@
+@implements IDisposable
+@inject StateContainer StateContainer
+ 
+<h4>Child Component One</h4>
+ 
+<input type="text" @bind="movieName" />
+ 
+<br/>
+<br/>
+ 
+<button @onclick="ChangePropertyValue" class="btn btn-primary">
+    Add to List
+</button>
+ 
+@code {
+    private string movieName="";
+    protected override void OnInitialized()
+    {
+        StateContainer.OnChange += StateHasChanged;
+    }
+ 
+    private void ChangePropertyValue()
+    {
+        StateContainer.SetValue(movieName);
+        movieName="";
+    }
+    public void Dispose()
+    {
+        StateContainer.OnChange -= StateHasChanged;
+    }
+}
